@@ -7,15 +7,15 @@ echo "---------------------------------------------------------"
 
 INSTALL_DIR=/home/pi  # Specify the installation directory here
 
-# # if custom variables not set we do not need to do anything
-# if [ -n "${TZ}" ]; then    
-#   FILECONF=$INSTALL_DIR/pialert/config/pialert.conf 
-#   if [ -f "$FILECONF" ]; then
-#     sed -ie "s|Europe/Berlin|${TZ}|g" $INSTALL_DIR/pialert/config/pialert.conf 
-#   else 
-#     sed -ie "s|Europe/Berlin|${TZ}|g" $INSTALL_DIR/pialert/back/pialert.conf_bak 
-#   fi
-# fi
+# if custom variables not set we do not need to do anything
+if [ -n "${TZ}" ]; then    
+  FILECONF=$INSTALL_DIR/pialert/config/pialert.conf 
+  if [ -f "$FILECONF" ]; then
+    sed -ie "s|Europe/Berlin|${TZ}|g" $INSTALL_DIR/pialert/config/pialert.conf 
+  else 
+    sed -ie "s|Europe/Berlin|${TZ}|g" $INSTALL_DIR/pialert/back/pialert.conf_bak 
+  fi
+fi
 
 # Check if script is run as root
 if [[ $EUID -ne 0 ]]; then
@@ -90,7 +90,6 @@ fi
 echo "[INSTALL] Copy starter pialert.db and pialert.conf if they don't exist"
 
 # Copy starter pialert.db and pialert.conf if they don't exist
-# cp -n "/home/pi/pialert/back/pialert.conf" "/home/pi/pialert/config/pialert.conf" 
 cp -n "$INSTALL_DIR/pialert/back/pialert.conf" "$INSTALL_DIR/pialert/config/pialert.conf" 
 cp -n "$INSTALL_DIR/pialert/back/pialert.db"  "$INSTALL_DIR/pialert/db/pialert.db" 
 
